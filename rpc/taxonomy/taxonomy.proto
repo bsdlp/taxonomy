@@ -1,0 +1,53 @@
+syntax = "proto3";
+package github.com.bsdlp.taxonomy;
+option go_package = "github.com/bsdlp/taxonomy/rpc/taxonomy";
+
+import "google/protobuf/timestamp.proto";
+
+service Taxonomy {
+	rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+
+	// discord
+	rpc LookupDiscordUser(LookupDiscordUserRequest) returns (LookupDiscordUserResponse);
+	rpc LinkDiscordUser(LinkDiscordUserRequest) returns (LinkDiscordUserResponse);
+	rpc UnlinkDiscordUser(UnlinkDiscordUserRequest) returns (UnlinkDiscordUserResponse);
+}
+
+message User {
+	string id = 1;
+	string name = 2;
+	google.protobuf.Timestamp created_at = 3;
+	google.protobuf.Timestamp updated_at = 4;
+}
+
+message CreateUserRequest {
+	string name = 1;
+}
+
+message CreateUserResponse {
+	User user = 1;
+}
+
+message LookupDiscordUserRequest {
+	string discord_id = 1;
+}
+
+message LookupDiscordUserResponse {
+	User user = 1;
+}
+
+message LinkDiscordUserRequest {
+	string user_id = 1;
+	string discord_id = 2;
+}
+
+message LinkDiscordUserResponse {
+}
+
+message UnlinkDiscordUserRequest {
+	string user_id = 1;
+	string discord_id = 2;
+}
+
+message UnlinkDiscordUserResponse {
+}
